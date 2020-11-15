@@ -54,7 +54,6 @@ def loginPage(request):
         password = request.POST.get('password')
 
         user = authenticate(request, username=username, password=password)
-        user = authenticate(request, username=username, password=password)
         captcha_token = request.POST.get('g-recaptcha-response')
         captcha_url = "https://www.google.com/recaptcha/api/siteverify"
         captcha_secret ="6LdtqOAZAAAAAHKkGq-wSSQKxwV4puvrIl6VlBmy"
@@ -142,7 +141,7 @@ def accountSettings(request):
 
 
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['admin'])
+@allowed_users(allowed_roles=['admin','customer'])
 def products(request):
     products = Product.objects.all()
 
@@ -212,3 +211,4 @@ def deleteOrder(request, pk):
 
     context = {'item': order}
     return render(request, 'accounts/delete.html', context)
+
